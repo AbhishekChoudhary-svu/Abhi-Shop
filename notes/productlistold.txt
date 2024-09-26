@@ -1,0 +1,46 @@
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { fetchProducts } from '../store/productSlice'
+
+export default function ProductList() {
+  const dispatch = useDispatch()
+  const { products, status, error } = useSelector((state) => state.products)
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchProducts())
+    }
+  }, [status, dispatch])
+
+  if (status === 'loading') {
+    return <div className="text-center py-12">Loading...</div>
+  }
+
+  if (status === 'failed') {
+    return <div className="text-center py-12 text-red-500">{error}</div>
+  }
+
+  return (
+    <div className="py-8 bg-slate-200">
+      <h2 className="text-5xl font-bold text-center mb-8"></h2>
+      <div className="py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map((product) => (
+          <div key={product.id} className="border rounded-3xl overflow-hidden shadow-2xl">
+            <img src={product.images} alt={product.title} className="w-full mix-blend-multiply h-64 object-contain" />
+            <div className="p-4">
+              <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
+              <p className="text-gray-600 mb-4">${product.price.toFixed(2)}</p>
+              <Link
+                to={`/product/${product.id}`}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded block text-center"
+              >
+                View Details
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
