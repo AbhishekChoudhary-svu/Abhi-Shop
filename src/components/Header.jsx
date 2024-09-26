@@ -13,8 +13,8 @@ export default function Header() {
       <div className="container border-purple-900 border-b-[1px]  mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold">
-              AbhiShop
+            <Link to="/" className=" font-bold">
+             <img className='h-24 font-bold' src="https://i.postimg.cc/Kz0wQhvd/logo-removebg-preview.png" alt="" />
             </Link>
           </div>
          

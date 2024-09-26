@@ -1,32 +1,29 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGoogle, FaFacebook, FaApple, FaAmazon } from 'react-icons/fa';
-import { UserAuth } from "../context/AuthContext"
+import { UserAuth } from "../context/AuthContext";
 
 const SignIn = () => {
    const { googleSignIn } = UserAuth();
-   const [email, setEmail] = useState(""); // State to hold the email
-   const [password, setPassword] = useState(""); 
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
    const [isSigningIn, setIsSigningIn] = useState(false);
 
-   // Corrected function name
    const handleSignIn = async () => {
-      setIsSigningIn(true); // Start signing in
+      setIsSigningIn(true);
       try {
-         await googleSignIn(); // Call the sign-in function
+         await googleSignIn();
       } catch (error) {
          console.error("Sign in error:", error);
       } finally {
-         setIsSigningIn(false); // Stop signing in regardless of success or failure
+         setIsSigningIn(false);
       }
-   }
+   };
 
-   // Handle form submission
    const handleSubmit = (e) => {
       e.preventDefault();
-      // You can also add email/password sign-in logic here if needed
       console.log("Email:", email, "Password:", password);
-   }
+   };
 
    return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center p-4">
@@ -36,10 +33,14 @@ const SignIn = () => {
             transition={{ duration: 0.5 }}
             className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md"
          >
-            <div className="flex justify-center mb-8">
-               <img className='' src="https://i.postimg.cc/52W7B2SX/download.png" alt="" />
+            <div className="flex justify-center h-20">
+               <img
+                  className='w-full h-full object-contain'
+                  src="https://i.postimg.cc/52W7B2SX/download.png"
+                  alt="Logo"
+               />
             </div>
-            <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Sign in</h2>
+            <h2 className="text-3xl font-bold text-center   mb-4 text-gray-800">Sign in</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
                <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -119,7 +120,7 @@ const SignIn = () => {
                      whileHover={{ scale: 1.05 }}
                      whileTap={{ scale: 0.95 }}
                      className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                     onClick={handleSignIn} // Call the handleSignIn function here
+                     onClick={handleSignIn}
                   >
                      <FaGoogle className="text-red-500" />
                   </motion.button>
