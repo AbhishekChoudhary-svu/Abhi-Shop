@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ShoppingCart, Menu } from 'lucide-react'
 import { useState } from 'react'
+import SignIn from '../pages/SignIn'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -9,13 +10,14 @@ export default function Header() {
 
   return (
     <header className="bg-gradient-to-l from-blue-800 to bg-purple-800 text-white">
-      <div className="container  mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container border-purple-900 border-b-[1px]  mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-xl font-bold">
               AbhiShop
             </Link>
           </div>
+         
           <nav className="hidden md:block">
             <ul className="flex space-x-4">
               <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
@@ -23,7 +25,15 @@ export default function Header() {
               <li><Link to="/products" className="hover:text-gray-300">Products</Link></li>
             </ul>
           </nav>
+
           <div className="flex items-center ">
+           <Link to="/signIn">
+            <div  className='p-5 text-center cursor-pointer text-xs hidden md:block'>
+              <p className='font-semibold '>Hello, Abhishek Choudhary</p>
+              <h2 className='font-bold text-sm' >Accounts and Lists</h2>
+            </div>
+           </Link>
+          
             <div className='relative'>
             <Link to="/cart" className="flex items-center hover:text-gray-300">
             <ShoppingCart size={35} strokeWidth={1.5} absoluteStrokeWidth />
@@ -41,13 +51,18 @@ export default function Header() {
           </div>
         </div>
       </div>
+      
       {isMenuOpen && (
         <div className="md:hidden">
-          <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <li><Link to="/" className="block hover:text-gray-300">Home</Link></li>
-            <li><Link to="/products" className="block hover:text-gray-300">Products</Link></li>
-            <li><Link to="/contact-us" className="hover:text-gray-300">Contact Us</Link></li>
+          <div className="px-4 cursor-pointer hover:text-gray-300 font-bold pt-2 pb-1 space-y-1 sm:px-3 ">
+            <p>Login</p>
+          </div>
+          <ul className="px-4 font-bold pt-2 pb-1 space-y-1 sm:px-3">
+            <li><Link to="/" className="block cursor-pointer hover:text-gray-300">Home</Link></li>
+            <li><Link to="/products" className="block cursor-pointer hover:text-gray-300">Products</Link></li>
+            <li><Link to="/contact-us" className="cursor-pointer hover:text-gray-300">Contact Us</Link></li>
           </ul>
+          
         </div>
       )}
     </header>

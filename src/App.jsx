@@ -12,6 +12,8 @@ import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import LocomotiveScroll from 'locomotive-scroll';
+import { AuthContextProvider } from './context/AuthContext'
+import SignIn from './pages/SignIn'
 
 
 // Create the Redux store
@@ -25,7 +27,9 @@ const store = configureStore({
 export default function App() {
   const locomotiveScroll = new LocomotiveScroll();
   return (
+
     <Provider store={store}>
+<AuthContextProvider>
       <Router>
       
         <div className="flex flex-col min-h-screen">
@@ -34,7 +38,7 @@ export default function App() {
             
             <Routes>
               <Route path="/" element={<Home />} />
-            
+              <Route path="/signIn" element={<SignIn />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/products" element={<ProductList />} />
               <Route path="/product/:id" element={<ProductDetail />} />
@@ -45,6 +49,8 @@ export default function App() {
           <Footer />
         </div>
       </Router>
+</AuthContextProvider>
     </Provider>
+  
   )
 }
