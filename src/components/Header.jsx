@@ -3,13 +3,22 @@ import { useSelector } from 'react-redux'
 import { ShoppingCart, Menu } from 'lucide-react'
 import { useState } from 'react'
 import SignIn from '../pages/SignIn'
+import { UserAuth } from '../context/AuthContext'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const cartItems = useSelector((state) => state.cart.items)
+  const {user,logOut}= UserAuth()
+  const handleLogout= async ()=>{
+    try {
+      await logOut()
+    } catch (error) {
+      
+    }
+  }
 
   return (
-    <header className="bg-gradient-to-l from-blue-800 to bg-purple-800 text-white">
+    <header className="sticky top-0 z-50 bg-gradient-to-l from-blue-800 to bg-purple-800 text-white">
       <div className="container border-purple-900 border-b-[1px]  mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -27,12 +36,16 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center ">
-           <Link to="/signIn">
-            <div  className='p-5 text-center cursor-pointer text-xs hidden md:block'>
-              <p className='font-semibold '>Hello, Abhishek Choudhary</p>
-              <h2 className='font-bold text-sm' >Accounts and Lists</h2>
+            <div  className='p-5 text-center cursor-pointer text-sm hidden md:block'>
+            {user?.displayName ?(<p className='font-bold text-sm'>Hello, {user?.displayName} </p>):<p className='font-bold text-sm'>Hello, User </p>}
+              {user?.displayName ? (
+                <button onClick={handleLogout} >Logout</button>
+              ):<Link to="/signIn">
+              <h2 className=' font-semibold ' >Sign In</h2>
+           </Link>}
+              
+           
             </div>
-           </Link>
           
             <div className='relative'>
             <Link to="/cart" className="flex items-center hover:text-gray-300">

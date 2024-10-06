@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGoogle, FaFacebook, FaApple, FaAmazon } from 'react-icons/fa';
 import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-   const { googleSignIn } = UserAuth();
+   const { googleSignIn,user } = UserAuth();
+   const navigate=useNavigate()
+
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [isSigningIn, setIsSigningIn] = useState(false);
@@ -19,6 +22,11 @@ const SignIn = () => {
          setIsSigningIn(false);
       }
    };
+   useEffect(()=>{
+      if(user != null){
+         navigate("/")
+      }
+   },[user])
 
    const handleSubmit = (e) => {
       e.preventDefault();
